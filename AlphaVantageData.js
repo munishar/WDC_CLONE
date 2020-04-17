@@ -80,13 +80,13 @@
                     expected.low = actual['3. low'] ? actual['3. low'] : '--'
                     expected.close = actual['4. close'] ? actual['4. close'] : '--'
                     expected.volume = actual['5. volume'] ? actual['5. volume'] : '--'
-                    expected.date = key 
+                    expected.date = key
                     allRows.push(expected)
                     }
-                    
+                $("#test").append(allRows)
                 table.appendRows(allRows)
                // this is a test line for checking if the URL parameters work
-               $("#test").append(allRows)
+              
                 doneCallback();
             }
         });
