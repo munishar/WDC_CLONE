@@ -83,6 +83,7 @@
                     expected.date = key
                     allRows.push(expected)
                     }
+               console.log(allRows)
                 $("#test").append(allRows)
                 table.appendRows(allRows)
                // this is a test line for checking if the URL parameters work
