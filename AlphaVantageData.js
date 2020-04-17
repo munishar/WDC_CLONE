@@ -85,6 +85,8 @@
                     }
                     
                 table.appendRows(allRows)
+               // this is a test line for checking if the URL parameters work
+               $("#test").append(allRows)
                 doneCallback();
             }
         });
