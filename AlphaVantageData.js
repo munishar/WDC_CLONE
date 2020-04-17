@@ -39,10 +39,30 @@
         schemaCallback([tableSchema]);
     };
 
+    function getUrlVars()
+    {
+          var vars = [], hash;
+          var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+          for(var i = 0; i < hashes.length; i++)
+          {
+              hash = hashes[i].split('=');
+              vars.push(hash[0]);
+              vars[hash[0]] = hash[1];
+          }
+          return vars;
+     }
+    
     myConnector.getData = function (table, doneCallback) {
-        
-        const url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+tableau.connectionData+'&apikey=QYOWP5SXIHB6BV3X'
-        //const url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=TSLA&apikey=QYOWP5SXIHB6BV3X'
+       var thesevars = getUrlVars();
+       if(thesevars.length()>0){
+          const baseURL =  'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&';
+          var apikey = thesevars['apikey'];
+          var sym = thesevars['sym'];
+          var url = baseURL+sym+'&apikey='+apikey
+       }
+       else{
+       const url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+tableau.connectionData+'&apikey=QYOWP5SXIHB6BV3X'
+       }//const url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=TSLA&apikey=QYOWP5SXIHB6BV3X'
         $.ajax({
             dataType: "json",
             url: url,
@@ -71,10 +91,8 @@
     };
 
     tableau.registerConnector(myConnector);
-
         $("#submitButton").click(function () {
-            tableau.connectionData = $("#submitSymbol").val();
-  
+            tableau.connectionData = $("#submitSymbol").val();  
             tableau.connectionName = "AV'+tableau.connectionData+'Feed";
             tableau.submit();
         });
